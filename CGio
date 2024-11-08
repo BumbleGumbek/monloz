@@ -1,0 +1,143 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Bai_Kieu_Tho_gui
+{
+    internal class CGio
+    {
+        //Truong du lieu (fields)
+        private int m_gio;
+        private int m_phut;
+        private int m_giay;
+
+        //Thuoc tinh (properties)
+        //public int Gio
+        //{
+        //    get 
+        //    { 
+        //        return m_gio; 
+        //    }
+        //    set 
+        //    { 
+        //        if (value >= 0 && value < 24) 
+        //            m_gio = value; 
+        //    }
+        //}
+        //public int Phut
+        //{
+        //    get { return m_phut; }
+        //    set { if (value >= 0 && value < 60) m_phut = value; }
+        //}
+
+        //public int Giay
+        //{
+        //    get { return m_giay; }
+        //    set { if (value >= 0 && value < 60) m_giay = value; }
+        //}
+
+        ////Phuong thuc (constructor)
+        public CGio()
+        {
+            DateTime now = DateTime.Now;
+            m_gio = now.Hour;
+            m_phut = now.Minute;
+            m_giay = now.Second;
+
+
+            //m_gio = 0;
+            //m_phut = 0;
+            //m_giay = 0;
+        }
+
+        //public CGio(int gio, int phut, int giay)
+        //{
+        //    m_gio = (gio >= 0 && gio < 24) ? gio : 0;
+        //    m_phut = (phut >= 0 && phut < 60) ? phut : 0;
+        //    m_giay = (giay >= 0 && giay < 60) ? giay : 0;
+        //}
+
+
+        public CGio(int gio, int phut, int giay)
+        {
+            if (gio >= 0 && gio < 24) m_gio = gio;
+            else m_gio = 0;
+
+            if (phut >= 0 && phut < 60) m_phut = phut;
+            else m_phut = 0;
+
+            if (giay >= 0 && giay < 60) m_giay = giay;
+            else m_giay = 0;
+        }
+
+        // Các phương thức get truyền thống
+        public int Gio
+        {
+            get { return m_gio; }
+        }
+
+        public int Phut
+        {
+            get { return m_phut; }
+        }
+
+        public int Giay
+        {
+            get { return m_giay; }
+        }
+
+        public void congGio(int h)
+        {
+            m_gio = (m_gio + h) % 24;
+
+        }
+
+
+        public void congPhut(int p)
+        {
+            int tongPhut = m_gio * 60 + m_phut + p; // tinhtong so phut, p la so phut muon cong
+            m_gio = (tongPhut / 60) % 24; // Cập nhật giờ, giới hạn trong khoảng 24
+            m_phut = tongPhut % 60; // Cập nhật phút
+
+        }
+
+        public void congGiay(int s)
+        {
+            int tongGiay = m_gio * 3600 + m_phut * 60 + m_giay + s; // tính tổng số giây
+            m_gio = (tongGiay / 3600) % 24;
+            m_phut = (tongGiay / 60) % 60;
+            m_giay = tongGiay % 60;
+        }
+
+
+        public static bool operator ==(CGio a, CGio b)
+        {
+            return a.m_gio == b.m_gio && a.m_phut == b.m_phut && a.m_giay == b.m_giay;
+
+        }
+
+        public static bool operator !=(CGio a, CGio b)
+        {
+            return !(a == b);
+        }
+
+
+        public static bool operator >(CGio a, CGio b)
+        {
+            if (a.m_gio != b.m_gio) return a.m_gio > b.m_gio;
+            if (a.m_phut != b.m_phut) return a.m_phut > b.m_phut;
+            return a.m_giay > b.m_giay;
+        }
+
+
+        public static bool operator <(CGio a, CGio b)
+        {
+            return !(a > b) && a != b; // neu a khong lon hon b và khong bang nhau => a<b
+        }
+
+    }
+
+}
+
