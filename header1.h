@@ -1,18 +1,23 @@
 #include<iostream>
 using namespace std;
 
-void nhap(int& n, int a[50]);
-void xuat(int n, int a[50]);
-int demchan(int n, int a[50]);
-bool sht(int n, int& s);
-void xuatsht(int n, int a[50]);
-void vitrile(int n, int a[50]);
-void scpdautien(int n, int a[50]);
-int tbcchanam(int n, int a[50]);
-void insnt(int n, int a[50]);
-void invitrisnt(int n, int a[50]);
-int tbcleduong(int n, int a[50]);
-int tonguoc6(int n, int a[50]);
-int tongptvitrichan(int n, int a[50]);
-int tongboi2(int n, int a[50]);
-bool kiemtra_am(int n, int a[50]);
+const int MAX = 50;
+struct MaTran
+{
+	int mt[MAX][MAX];
+	int n;
+};
+
+void nhapMaTran(MaTran& a);
+void xuatMaTran(MaTran a);
+void tinhTongMoiDong(MaTran a);
+int tingTongPTLonNhatMoiDong(MaTran a);
+int tinhTongDuongCheo(MaTran a);
+int timDongChanNhieuNhat(MaTran a);
+int timMaxDuongCheoPhu(MaTran a);
+int tinhTongMaxDong(MaTran a);
+int timCotLeNhieuNhat(MaTran a);
+void hoanDoiTamGiac(MaTran& a);
+void hoanDoiTamGiacChieuPhu(MaTran& a);
+
+
