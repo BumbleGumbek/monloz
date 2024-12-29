@@ -1,205 +1,182 @@
-﻿#include"header1.h"
-using namespace std;
-//Viết hàm nhập mảng
-void nhap(int& n, int a[50]) 
+#include "Header.h"
+void nhapMaTran(MaTran& a)
 {
-	for (int i = 0; i < n; i++)
+	cout << "Nhap n = ";
+	cin >> a.n;
+	for (int i = 0; i < a.n; i++)
 	{
-		cout << "a["<< i << "]= ";
-		cin >> a[i];
-	}
-}
-//Viết hàm xuất mảng
-void xuat(int n, int a[50])
-{
-	for (int i = 0; i < n; i++)
-	{
-		cout << a[i] << " ";
-	}
-}
-//Đếm có bao nhiêu phần tử chẵn có trong mảng.
-int demchan(int n, int a[50]) 
-{
-	int dem = 0;
-	for (int i = 0; i < n; i++)
-	{
-		if (a[i] % 2 == 0)
+		for (int j = 0; j < a.n; j++)
 		{
-			dem++;
-		}
-	}
-	return dem;
-}
-//Kiemtra so hoan thien
-bool sht(int n, int& s)
-{
-	s = 0;
-	if (n <= 0)
-		return false;
-	for (int i = 1; i < n; i++)
-	{
-		if (n % i == 0)
-		{
-			s = s + i;
-		}
-	}
-	return s == n;
-}
-//in ra cac so hoan thien
-void xuatsht(int n, int a[50])
-{
-	int s;
-	cout << "So hoan thien la: ";
-	for (int i = 0; i < n; i++)
-	{
-		if (sht(a[i],s))
-		{
-			cout << a[i] << " " << endl;
+			cout << "mt[" << i << "][" << j << "]= ";
+			cin >> a.mt[i][j];
 		}
 	}
 }
-//4 liệt kê tất cả các vị trí lẻ trong mảng
-void vitrile(int n, int a[50]) 
-{
-	cout << "Cac vi tri le: ";
-	for (int i = 0; i < n; i++) {
-		if (a[i] % 2 == 1)
-		{
-			cout << i << " ";
-		}
-	}
-}
-//In ra các scp đầu tiên
-void scpdautien(int n, int a[50]) 
-{
-	cout << "\nSo chinh phuong dau tien: ";
-	for (int i = 0; i < n; i++)
-	{
-		if (sqrt(a[i]) * sqrt(a[i]) == a[i]) 
-		{
-			cout << a[i];
-			break;
-		}
-	}
-}
-//Tính trung bình cộng các số chẵn âm
-int tbcchanam(int n, int a[50])
-{
-	int dem = 0;
-	int  tong = 0;
-	for (int i = 0; i < n; i++)
-	{
-		if (a[i] % 2 == 0 && a[i] < 0) 
-		{
-			tong += a[i];
-			dem++;
-		}
-	}
-	if (dem == 0) return dem;
-	double tbc = (static_cast<double>(tong)) / dem;
-	return tbc;
-}
-//In ra số nguyên tố có trong mảng
-void insnt(int n, int a[50])
-{
-	cout << "\Cac so nguyen to co trong mang: ";
-	for (int i = 0; i < n; i++)
-	{
-		if ( a[i] == 2 || a[i] == 3 || a[i] == 5 ) {
-			cout << a[i] << " ";
-		}
-		if (a[i] % 2 != 0 && a[i] % 3 != 0 && a[i] % 5 != 0) {
-			cout << a[i] << " ";
-		}
-	}
-}
-//In ra vị trí số nguyên tố
-void invitrisnt(int n, int a[50])
+void xuatMaTran(MaTran a)
 {
 	cout << endl;
-	cout << "Cac vi tri có so nguyen to trong mang : ";
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < a.n; i++)
 	{
-		if (a[i] == 2 || a[i] == 3 || a[i] == 5) {
-			cout << i << " ";
+		for (int j = 0; j < a.n; j++)
+		{
+			//if(i<=j)
+				cout << a.mt[i][j] << " ";
+			//else
+			//{
+				//cout << "  ";
+			//}
 		}
-		if (a[i] % 2 != 0 && a[i] % 3 != 0 && a[i] % 5 != 0) {
-			cout << i << " ";
-		}
+		cout << endl;
 	}
 }
+//Viet ham tinh tong tung dong tren ma tran
+void tinhTongMoiDong(MaTran a)
+{
+	for (int i = 0; i < a.n; i++)
+	{
+		int tong = 0;
+		for (int j = 0; j < a.n; j++)
+		{
+			tong += a.mt[i][j];
+		}
+		cout << "Tong cua dong " << i + 1 << ": " << tong << endl;
+	}
+}
+//Viet ham tinh tong cac phan tu lon nhat moi dong
+int tingTongPTLonNhatMoiDong(MaTran a)
+{
+	int tong = 0;
+	for (int i = 0; i < a.n; i++)
+	{
+		int max = a.mt[i][0];
+		for (int j = 1; j < a.n; j++)
+		{
+			if (a.mt[i][j] > max)
+				max = a.mt[i][j];
+		}
+		tong += max;
+	}
+	return tong;
+}
+//Sap xep cac phan tu tren 1 cot/dong bat ky tang giam dan
 
-//Tính trung bình cộng các số lẻ dương
-int tbcleduong(int n, int a[50])
+//Kiem tra ton tai phan tu la snt o tam giac phai tren duong cheo chinh khong
+//Kiem tra voi moi phan tu nam tren trai duong cheo phu la am khong
+//Tinh tong phan tu le trong tam giac phai duoi duong cheo phu
+//Xuat ra vi tri snt lon nhat co trong ma tran chi ra so dong so cot cua phan tu lon nhat
+//Kiem tra tren duong cheo chinh co ton tai snt ko
+//Tim phan tu nho nhat co tren duong cheo phu
+//Sap xep cac phan tu tren duong cheo chinh giam dan
+//Tinh tong cac phan tu nho nhat co tren duong chep chinh va phu
+int tinhTongDuongCheo(MaTran a)
 {
-	cout << endl;
-	int dem = 0;
 	int tong = 0;
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < a.n; i++)
 	{
-		if (a[i] % 2 == 1 && a[i] > 0)
-		{
-			tong += a[i];
-			dem++;
-		}
+		tong += a.mt[i][i];
+		tong += a.mt[i][a.n - i - 1];
 	}
-	if (dem == 0) return dem;
-	double tbc = tong / dem;
-	return tbc;
-}
-//Tính tổng các phần tử có ước là 6
-int tonguoc6(int n, int a[50])
-{
-	cout << endl;
-	int tong = 0;
-	for (int i = 0; i < n; i++)
+	if (a.n % 2 == 1)//Loai bo phan tu bi trung
 	{
-		if (6 % a[i] == 0) 
-		{
-			tong += a[i];
-		}
+		int tam = a.mt[a.n / 2][a.n / 2];
+		tong = tong - tam;
 	}
 	return tong;
 }
-//Viết hàm tính tổng các phần tử tại vị trí chẵn.
-int tongptvitrichan(int n, int a[50])
+int timDongChanNhieuNhat(MaTran a)
 {
-	cout << endl;
-	int tong = 0;
-	for (int i = 0; i < n; i++)
+	int max = 0;
+	int dong = -1;
+	for (int i = 0; i < a.n; i++)
 	{
-		if (a[i] % 2 == 0)
+		int dem = 0; //Dem so chan tren dong
+		for (int j = 0; j < a.n; j++)
 		{
-			tong += a[i];
+			if (a.mt[i][j] % 2 == 0)//kiem tra chan
+			{
+				dem++;
+			}
 		}
+		if (dem > max) 
+		{
+			max = dem;//So luong so chan
+			dong = i;
+		}
+	}
+	return dong;
+}
+int timMaxDuongCheoPhu(MaTran a)
+{
+	int max = a.mt[0][a.n - 1];//Phan tu dau tien cua cheo phu
+	for (int i = 0; i < a.n; i++)
+	{
+		if (a.mt[i][a.n - 1 - i] > max)
+		{
+			max = a.mt[i][a.n - 1 - i];
+		}
+	}
+	return max;
+}
+int tinhTongMaxDong(MaTran a)
+{
+	int tong = 0;
+	for (int i = 0; i < a.n; i++)
+	{
+		int max = a.mt[i][0];
+		for (int j = 1; j < a.n; j++)
+		{
+			if (a.mt[i][j] > max)
+			{
+				max = a.mt[i][j];
+			}
+		}
+		tong += max;
 	}
 	return tong;
 }
-//Viết hàm tính tổng các phần tử dương và là chia hết cho 3 có trong mảng.
-//Viết hàm xuất các vị trí các số hoàn thiện có trong mảng.
-//Viết hàm tính tổng các phần tử là bội của 2.
-int tongboi2(int n, int a[50])
+int timCotLeNhieuNhat(MaTran a)
 {
-	cout << endl;
-	int tong = 0;
-	for (int i = 0; i < n; i++)
+	int max = 0;
+	int cot = -1;
+	for (int j = 0; j < a.n; j++)
 	{
-		if (a[i] % 2 == 0)
+		int dem = 0; //Dem so le cua cot
+		for (int i = 0; i < a.n; i++)
 		{
-			tong += a[i];
+			if (a.mt[i][j] % 2 == 1)//kiem tra le
+			{
+				dem++;
+			}
+		}
+		if (dem >= max)
+		{
+			max = dem;//So luong so le
+			cot = j;
 		}
 	}
-	return tong;
+	return cot;
 }
-//Viết hàm kiểm tra trong mảng có giá trị âm hay không? Nếu có trả về true, ngược lại trả về false.
-bool kiemtra_am(int n, int a[50])
+void hoanDoiTamGiac(MaTran& a) 
 {
-	for (int i = 0; i < n; i++) 
+	for (int i = 0; i < a.n; i++) 
 	{
-		if (a[i] < 0) return true;
+		for (int j = 0; j < a.n; j++) 
+		{
+			if (i < j) 
+			{
+				swap(a.mt[i][j], a.mt[j][i]);
+			}
+		}
 	}
-	return false;
 }
-//Viết hàm đếm các phần tử là bội của số lẻ 5 có trong mảng.
-//Viết hàm tính tổng các vị trí chẵn trong mảng.
-
+void hoanDoiTamGiacChieuPhu(MaTran& a) {
+	for (int i = 0; i < a.n; i++) {
+		for (int j = 0; j < a.n; j++) {
+			if (i + j < a.n - 1) {
+				if (i + j > a.n - 1) {
+					swap(a.mt[i][j], a.mt[j][i]);
+				}
+			}
+		}
+	}
+}
