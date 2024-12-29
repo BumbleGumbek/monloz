@@ -1,22 +1,25 @@
-﻿#include"header1.h"
-using namespace std;
-void main()
+#include "Header.h"
+
+int main()
 {
-	int n, a[50];
-	cout << "Nhap mang: ";
-	cin >> n;
-	nhap(n, a);
-	xuat(n, a);
-	cout << "\nSo phan tu chan la: " << demchan(n, a) << endl;
-	xuatsht(n, a);
-	vitrile(n, a);
-	scpdautien(n, a);
-	cout << "\nTrung binh cong cac so chan am la: " << tbcchanam(n, a) <<endl;
-	insnt(n, a);
-	invitrisnt(n, a);
-	cout << "Trung binh cong cac so le duong la: " << tbcleduong(n, a);
-	cout << "Tong cac uoc cua 6 là: " << tonguoc6(n, a);
-	cout << "Tong cac phan tu o vi tri chan la: " << tongptvitrichan(n, a);
-	cout << "Tong cac phan tu la boi cua 2: " << tongboi2(n, a);
-	bool kiemtra_am(int n, int a[50]);
+	MaTran a;
+	nhapMaTran(a);
+	xuatMaTran(a);
+	tinhTongMoiDong(a);
+	cout <<"Tong phan tu lon nhat moi dong la: " << tingTongPTLonNhatMoiDong(a) << endl;
+	cout << "Tong duong cheo ma tran la: " << tinhTongDuongCheo(a) << endl;
+	cout << "Dong co nhieu so chan nhat là: " << timDongChanNhieuNhat(a) << endl;
+	cout << "Phan tu lon nhat cua duong cheo phu la: " << timMaxDuongCheoPhu(a) << endl;
+	cout << "Tong cac phan tu lon nhat moi dong la: " << tinhTongMaxDong(a) << endl;
+	cout << "Cot co nhieu so le nhat là: " << timCotLeNhieuNhat(a) << endl;
+
+	hoanDoiTamGiac(a);
+	cout << "Ma tran sau khi hoan doi tam giac cheo chinh:" << endl;
+	xuatMaTran(a);
+
+	hoanDoiTamGiacChieuPhu(a);
+	cout << "Ma tran sau khi hoan doi tam giac cheo phu:" << endl;
+	xuatMaTran(a);
+
+	return 0;
 }
